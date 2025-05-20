@@ -1,0 +1,43 @@
+  bill no 
+  user name,
+  name 
+  roll 
+  claa 
+
+  {
+   API ---restapi .............. get   post delete  put 
+   DATABASE
+   AUTH
+   ROuting
+  }..............
+  node js install 
+  npm init ---------
+  node serve...........---------
+  git setup .........-----------
+  github repo ------------------
+
+
+  Splash screen (hero page )
+  server----------------------------------------------
+  auth ----login 
+  google ---+email
+  data ---device id-------database 
+  location--------
+  
+
+
+
+  client --------------------------------------------
+  bill history(consumption) ......
+  real time time consumption....
+  prediction ----python(aiml)+setting 
+  PROFILE setup
+  current bill 
+  ............ X days 
+  analysis 
+  chart -----------time vs consumption, time priece............
+  show calculation --------
+
+
+
+
