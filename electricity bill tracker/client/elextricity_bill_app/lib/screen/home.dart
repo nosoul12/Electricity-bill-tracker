@@ -1,11 +1,32 @@
 import 'package:elextricity_bill_app/core/colors.dart';
+import 'package:elextricity_bill_app/loction.dart';
 import 'package:elextricity_bill_app/widgets/analytics_card.dart';
 import 'package:elextricity_bill_app/widgets/bill_card.dart';
 import 'package:flutter/material.dart';
 
 // screens/home.dart
-class Home_Screen extends StatelessWidget {
+class Home_Screen extends StatefulWidget {
   const Home_Screen({super.key});
+
+  @override
+  State<Home_Screen> createState() => _Home_ScreenState();
+}
+
+class _Home_ScreenState extends State<Home_Screen> {
+  String _location = 'Loading...';
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchLocation();
+  }
+
+  Future<void> _fetchLocation() async {
+    final location = await getUserLocation();
+    setState(() {
+      _location = location;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +71,7 @@ class Home_Screen extends StatelessWidget {
                         ),
                         const SizedBox(width: 4),
                         Text(
-                          'Indore',
+                          _location,
                           style: AppTextStyles.bodyText1.copyWith(
                             color: AppColors.secondaryText,
                           ),
@@ -63,15 +84,19 @@ class Home_Screen extends StatelessWidget {
                   radius: 24,
                   backgroundColor: AppColors.primary,
                   child: Text(
-                    'Y', // You can use an actual user profile image here
-                    style: AppTextStyles.headline1.copyWith(color: Colors.white),
+                    'Y',
+                    style: AppTextStyles.headline1.copyWith(
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ],
             ),
             const SizedBox(height: 24),
-            // End Header Section
 
+            // Other widgets remain unchanged...
+
+            // End Header Section
             BillDetailsCard(
               onTap: () {
                 Navigator.of(context).pushNamed('/bill-details');
@@ -142,10 +167,7 @@ class Home_Screen extends StatelessWidget {
           // Your action here
         },
         backgroundColor: AppColors.primary,
-        child: const Icon(
-          Icons.chat,
-          color: Colors.white,
-        ),
+        child: const Icon(Icons.chat, color: Colors.white),
       ),
     );
   }
