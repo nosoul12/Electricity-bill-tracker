@@ -1,19 +1,39 @@
+import 'package:elextricity_bill_app/widgets/add_devices.dart';
 import 'package:flutter/material.dart';
 
-// screens/manage_devices_page.dart
-// The page to manage connected devices.
-class ManageDevicesPage extends StatelessWidget {
+class ManageDevicesPage extends StatefulWidget {
   const ManageDevicesPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    // Dummy devices
-    final devices = [
-      {"name": "Refrigerator", "usage": "₹ 300/month", "status": "On"},
-      {"name": "Washing Machine", "usage": "₹ 120/month", "status": "Off"},
-      {"name": "Air Conditioner", "usage": "₹ 850/month", "status": "On"},
-    ];
+  State<ManageDevicesPage> createState() => _ManageDevicesPageState();
+}
 
+class _ManageDevicesPageState extends State<ManageDevicesPage> {
+  List<Map<String, String>> devices = [
+    {"name": "Refrigerator", "usage": "₹ 300/month", "status": "On"},
+    {"name": "Washing Machine", "usage": "₹ 120/month", "status": "Off"},
+    {"name": "Air Conditioner", "usage": "₹ 850/month", "status": "On"},
+  ];
+
+  void _addDevice() async {
+    final newDevice = await showModalBottomSheet<Map<String, String>>(
+      context: context,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      ),
+      builder: (_) => const AddDeviceForm(),
+    );
+
+    if (newDevice != null) {
+      setState(() {
+        devices.add(newDevice);
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Manage Devices")),
       body: ListView.builder(
@@ -44,17 +64,13 @@ class ManageDevicesPage extends StatelessWidget {
                   const Icon(Icons.chevron_right),
                 ],
               ),
-              onTap: () {
-                // Navigate to device details
-              },
+              onTap: () {},
             ),
           );
         },
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          // Add device action
-        },
+        onPressed: _addDevice,
         label: const Text("Add Device"),
         icon: const Icon(Icons.add),
       ),
